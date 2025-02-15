@@ -9,8 +9,7 @@ namespace MainMenu.Root
     public class MainMenuEntryPoint : MonoBehaviour
     {
         [SerializeField] private UIMainMenuBinder _binder;
-        
-        private Subject<bool> _startExam = new Subject<bool>();
+        private bool _isExam = false;
         
         public Observable<MainMenuExitParams> Run(DIContainer gameplayContainer)
         {
@@ -22,14 +21,9 @@ namespace MainMenu.Root
             Debug.Log($"MainMenu ENTRY POINT: save file name = , level to load = ");
             
             
-            var exit = _startExam.Select(isExam => new MainMenuExitParams(new GameplayEnterParams(isExam)));
+            var exit = exitToResultsSignalSubj.Select(isExam => new MainMenuExitParams(new GameplayEnterParams(_isExam)));
             
             return exit;
-        }
-
-        public void StartConstructor(bool startExam)
-        {
-            _startExam.OnNext(startExam);
         }
 
         public void Exit()

@@ -60,7 +60,7 @@ namespace Game.Root
             yield return LoadScene(Scenes.MAIN_MENU);
             
             var sceneEntryPoint = Object.FindFirstObjectByType<MainMenuEntryPoint>();
-            var gameplayContainer = _cachedSceneContainer = new DIContainer(_rootContainer); 
+            var gameplayContainer = _cachedSceneContainer = new DIContainer(_rootContainer);
             sceneEntryPoint.Run(gameplayContainer).Subscribe(mainMenuExitParams =>
             {
                 _coroutines.StartCoroutine(LoadAndStartAfterMainMenu(mainMenuExitParams));

@@ -1,10 +1,7 @@
 ﻿using BaCon;
 using Game.Params;
-using MyUtils;
-//using Naf;
 using PogruzhickURP.Scripts.Gameplay.Root;
 using R3;
-//using Ski.Scripts.Gameplay;
 using UnityEngine;
 using Valve.VR.InteractionSystem;
 
@@ -19,8 +16,14 @@ namespace Gameplay.Root
         public Observable<Unit> Run(DIContainer gameplayContainer, GameplayEnterParams enterParams)
         {
             var player = FindObjectOfType<Player>();
-            _playerCamera = player.hmdTransforms[0].GetComponent<Camera>();
-            
+            if (player != null)
+            {
+                _playerCamera = player.hmdTransforms[0].GetComponent<Camera>();
+            }
+            else
+            {
+                new EventSystemCreator();
+            }
             
             var exitToResultsSignalSubj = new Subject<Unit>();
             _binder.Bind(exitToResultsSignalSubj);
